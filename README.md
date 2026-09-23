@@ -51,6 +51,21 @@ Key design considerations include:
 * Establishing appropriate primary and foreign keys to maintain referential integrity.
 * Addressing duplicate records during data preparation.
 * Introducing a surrogate key for `student_vle` because the original activity fields did not provide a reliable unique identifier.
+
+
+### Primary Keys, Foreign Keys, and Data Integrity
+
+The database uses primary and foreign key constraints to preserve data integrity and establish relationships between course offerings, student assessments, and online learning activity.
+
+**Key design decisions:**
+
+* **Composite keys:** Course offerings are identified using `code_module` and `code_presentation`, allowing the same module to appear in different presentations.
+* **Assessment identification:** Each assessment has a unique `id_assessment`, while student assessment records use a composite primary key.
+* **Surrogate key:** A generated `student_vle_id` was introduced to uniquely identify individual student activity records.
+* **Referential integrity:** Foreign key constraints connect assessments, course offerings, and VLE resources to their related tables.
+
+These design decisions support reliable joins, reduce ambiguity, and provide a structured foundation for analyzing student performance and engagement.
+
 * Validating data integrity after loading the source files.
 
 The relational schema provides the foundation for advanced SQL analysis of academic performance and student engagement.
