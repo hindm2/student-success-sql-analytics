@@ -83,6 +83,38 @@ erDiagram
     vle ||--o{ student_vle : tracks
 
 ```
+## Data Cleaning and Validation
+
+Data quality and integrity checks were performed during the preparation and loading of the Open University Learning Analytics Dataset (OULAD).
+
+### Handling Repeated Student Activity Records
+
+The `student_vle` table contains student interactions with virtual learning environment resources.
+
+An examination of the original activity fields identified repeated combinations of course module, presentation, student ID, site ID, date, and click count.
+
+Instead of automatically removing these records, I retained them and added a surrogate primary key (`student_vle_id`) to uniquely identify each row.
+
+**Validation results:**
+
+| Metric                                 |     Result |
+| -------------------------------------- | ---------: |
+| Total activity records                 | 10,655,280 |
+| Unique activity combinations           |  9,868,110 |
+| Repeated combinations beyond the first |    787,170 |
+| Duplicate surrogate IDs                |          0 |
+
+This approach preserves the loaded activity records while maintaining unique row identifiers. Repeated combinations were not assumed to be erroneous duplicates because the source fields do not establish whether identical records represent separate interactions.
+
+### Handling Missing Values
+
+Missing assessment-related values were handled during data import. The `?` placeholder in the source assessment data was interpreted as SQL `NULL`, allowing missing values to be represented appropriately.
+
+### Referential Integrity
+
+Primary and foreign key constraints were implemented to maintain relationships between course offerings, assessments, student records, and virtual learning environment resources.
+
+Referential integrity checks were also performed to identify potential orphan records.
 
 
 
