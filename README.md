@@ -81,6 +81,7 @@ erDiagram
     courses ||--o{ student_vle : records
     assessments ||--o{ student_assessment : receives
     vle ||--o{ student_vle : tracks
+
 ```
 
 
